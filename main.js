@@ -33,7 +33,7 @@ generatePasswordButton.addEventListener("click", () => {
 for (const outputField of outputFields) {
     outputField.addEventListener("click", () => {
         console.log("clicked");
-        Navigator.clipboard.writeText(outputField.value);
+        navigator.clipboard.writeText(outputField.value);
     });
 }
 
