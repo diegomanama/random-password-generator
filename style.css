@@ -1,0 +1,73 @@
+@font-face {
+    font-family: Karla;
+    src: url(fonts/Karla/Karla-VariableFont_wght.ttf);
+}
+
+body {
+    margin: 0;
+    font-family: Karla;
+}
+
+#main-container {
+    max-inline-size: 26rem;
+}
+
+hgroup {
+    margin-block-end: 3.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1;
+}
+
+.highlight {
+    color: #10B981;
+}
+
+#tagline {
+    color: #6B7280;
+    margin: 0;
+}
+
+#generate-password-button {
+    color: #ffffff;
+    background: #10B981;
+    border: 0;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+}
+
+hr {
+    border-color: #D5D4D8;
+    margin-block: 2.1rem;
+}
+
+#passwords-container {
+    display: flex;
+    gap: 1.5rem;
+}
+
+output {
+    display: block;
+    word-break: break-all;
+    min-block-size: 2.4rem;
+    line-height: 2.4rem;
+    inline-size: 13rem;
+    background: #273549;
+    border-radius: 6px;
+    color: #10B981;
+    text-align: center;
+    padding-inline: 0.5rem;
+}
+
+#options-container {
+    border-radius: 1rem;
+    border: 1px solid #6B7280;
+}
