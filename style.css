@@ -4,12 +4,12 @@
 }
 
 body {
-    margin: 0;
     font-family: Karla;
 }
 
 #main-container {
     max-inline-size: 26rem;
+    margin-inline: auto;
 }
 
 hgroup {
