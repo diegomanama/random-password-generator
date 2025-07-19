@@ -1,3 +1,11 @@
+// Helper function - Adds the same event listener to multiple elements.
+
+function addEventListenerAll(elementCollection, eventType, handler) {
+  for (const element of elementCollection) {
+    element.addEventListener(eventType, (event) => handler(element, event));
+  }
+}
+
 const uppercaseLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 
 const lowercaseLetters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
@@ -66,50 +74,42 @@ generatePasswordButton.addEventListener("click", () => {
     }
 });
 
-for (const outputField of outputFields) {
-    outputField.addEventListener("click", () => {
+addEventListenerAll(outputFields, "click", (outputField) => {
         navigator.clipboard.writeText(outputField.value);
-    });
-}
+});
 
 lengthSlider.addEventListener("input", updateLengthSelector);
 lengthSelector.addEventListener("input", updateLengthSlider);
 
-for (const toggleState of toggleStates) {
-    toggleState.addEventListener("input", () => {
-        switch (toggleState.dataset.setting) {
-            case "uppercaseLetters":
-                config.uppercaseLetters = toggleState.checked;
-                break;
-            case "lowercaseLetters":
-                config.lowercaseLetters = toggleState.checked;
-                break;
-            case "numbers":
-                config.numbers = toggleState.checked;
-                break;
-            case "specialCharacters":
-                config.specialCharacters = toggleState.checked;
-                break;
-        }
+addEventListenerAll(toggleStates, "input", (toggleState) => {
+    switch (toggleState.dataset.setting) {
+        case "uppercaseLetters":
+            config.uppercaseLetters = toggleState.checked;
+            break;
+        case "lowercaseLetters":
+            config.lowercaseLetters = toggleState.checked;
+            break;
+        case "numbers":
+            config.numbers = toggleState.checked;
+            break;
+        case "specialCharacters":
+            config.specialCharacters = toggleState.checked;
+            break;
+    }
 
-        if (
-            config.uppercaseLetters === false &&
-            config.lowercaseLetters === false &&
-            config.numbers === false &&
-            config.specialCharacters === false
-        ) {
-            config = JSON.parse(localStorage.getItem("defaultConfig"));
-            for (const toggleState of toggleStates) {
-                toggleState.checked = toggleState.defaultChecked;
-            }
+    if (
+        config.uppercaseLetters === false &&
+        config.lowercaseLetters === false &&
+        config.numbers === false &&
+        config.specialCharacters === false
+    ) {
+        config = JSON.parse(localStorage.getItem("defaultConfig"));
+        for (const toggleState of toggleStates) {
+            toggleState.checked = toggleState.defaultChecked;
         }
+    }
 
-        for (const outputField of outputFields) {
-            outputField.value = generateRandomPassword(config);
-        }
-    });
-}
+    outputFields.forEach((field) => field.value = generateRandomPassword(config));
+});
 
-for (const outputField of outputFields) {
-    outputField.value = generateRandomPassword(config);
-}
+outputFields.forEach((field) => field.value = generateRandomPassword(config));
