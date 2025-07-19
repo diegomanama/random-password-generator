@@ -3,6 +3,10 @@
     src: url(fonts/Karla/Karla-VariableFont_wght.ttf);
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Karla;
 }
@@ -49,17 +53,12 @@ hr {
     margin-block: 2.1rem;
 }
 
-#passwords-container {
-    display: flex;
-    gap: 1.5rem;
-}
-
-output {
+#password-output {
     display: block;
     word-break: break-all;
     min-block-size: 2.4rem;
     line-height: 2.4rem;
-    inline-size: 13rem;
+    inline-size: 100%;
     background: #273549;
     border-radius: 6px;
     color: #10B981;

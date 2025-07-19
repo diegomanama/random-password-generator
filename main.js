@@ -27,7 +27,7 @@ localStorage.setItem("defaultConfig", JSON.stringify(
 let config = JSON.parse(localStorage.getItem("defaultConfig"));
 
 const generatePasswordButton = document.querySelector("#generate-password-button");
-const outputFields = Array.from(document.querySelectorAll(".output-field"));
+const passwordOutput = document.querySelector("#password-output");
 const lengthSelector = document.querySelector("#length");
 const lengthSlider = document.querySelector("#length-slider");
 const toggleStates = document.querySelectorAll(".toggle-state");
@@ -68,15 +68,11 @@ function updateLengthSlider() {
 }
 
 generatePasswordButton.addEventListener("click", () => {
-    for (const outputField of outputFields) {
         config.length = lengthSelector.value
-        outputField.value = generateRandomPassword(config);
-    }
+        passwordOutput.value = generateRandomPassword(config);
 });
 
-addEventListenerAll(outputFields, "click", (outputField) => {
-        navigator.clipboard.writeText(outputField.value);
-});
+passwordOutput.addEventListener("click", () => navigator.clipboard.writeText(passwordOutput.value));
 
 lengthSlider.addEventListener("input", updateLengthSelector);
 lengthSelector.addEventListener("input", updateLengthSlider);
@@ -109,7 +105,7 @@ addEventListenerAll(toggleStates, "input", (toggleState) => {
         }
     }
 
-    outputFields.forEach((field) => field.value = generateRandomPassword(config));
+    passwordOutput.value = generateRandomPassword(config);
 });
 
-outputFields.forEach((field) => field.value = generateRandomPassword(config));
+passwordOutput.value = generateRandomPassword(config);
