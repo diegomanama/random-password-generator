@@ -24,9 +24,66 @@
             <hr>
             <fieldset id="options-container">
                 <legend>Options</legend>
+
                 <label for="length">Length</label>
                 <input id="length" type="number" name="length" value="12" min="5" max="128"><br>
                 <input id="length-slider" type="range" value="12" min="5" max="128">
+
+                <p>Include:</p>
+
+                <div id="password-composition-settings-container">
+                    <p class="setting-container">
+                        Uppercase characters (A-Z)
+
+                        <label class="toggle">
+                            <input 
+                                type="checkbox"
+                                class="toggle-state"
+                                data-setting="uppercaseLetters"
+                                checked>
+                            <span class="slider"></span>
+                        </label>
+                    </p>
+
+                    <p class="setting-container">
+                        Lowercase characters (a-z)
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                class="toggle-state"
+                                data-setting="lowercaseLetters"
+                                checked>
+                            <span class="slider"></span>
+                        </label>
+                    </p>
+
+                    <p class="setting-container ">
+                        Numbers (0-9)
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                class="toggle-state"
+                                data-setting="numbers"
+                                checked>
+                            <span class="slider"></span>
+                        </label>
+                    </p>
+
+                    <p class="setting-container">
+                        Special characters
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                class="toggle-state"
+                                data-setting="specialCharacters">
+                            <span class="slider"></span>
+                        </label>
+                    </p>
+                </div>
+
             </fieldset>
         </form>
     </main>

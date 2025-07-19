@@ -71,3 +71,58 @@ output {
     border-radius: 1rem;
     border: 1px solid #6B7280;
 }
+
+#password-composition-settings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.setting-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+}
+
+.toggle {
+    font-size: 0.7rem;
+    position: relative;
+    display: inline-block;
+    block-size: 2em;
+    inline-size: 4em;
+}
+
+.toggle input {
+    block-size: 0;
+    inline-size: 0;
+    opacity: 0;
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    background: #6B7280;
+    border-radius: 1em;
+    transition: 300ms;
+}
+
+.slider::before {
+    position: absolute;
+    content: "";
+    background: white;
+    block-size: 1.4em;
+    inline-size: 1.4em;
+    left: 0.3em;
+    bottom: 0.3em;
+    border-radius: 50%;
+    transition: 300ms;
+}
+
+.toggle input:checked + .slider {
+    background-color: #10B981
+}
+
+.toggle input:checked + .slider::before {
+    transform: translateX(2em);
+}
