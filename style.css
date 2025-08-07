@@ -3,12 +3,161 @@
     src: url(fonts/Karla/Karla-VariableFont_wght.ttf);
 }
 
+@layer os-based-color-scheme {
+    @media screen and (prefers-color-scheme: light) {
+        :root {
+            --background: #ecfdf5;
+            --foreground: #2b283a;
+            --secondary-background: #d5ffeb;
+            --accent: #10b981;
+            --hover-background-highlight: #a2fff3d1;
+            --hover-foreground-highlight: #10b981;
+            --tagline: #6b7280;
+            --border: #d5d4d8;
+            --button-background: #10b981;
+            --button-foreground: #ffffff;
+            --password-field-background: #273549;
+            --password-field-foreground: #10b981;
+            --checked-toggle-background: #10b981;
+            --unchecked-toggle-background: #6b7280;
+        }
+    }
+
+    @media screen and (prefers-color-scheme: dark) {
+        :root {
+            --background: #1f2937;
+            --foreground: #ffffff;
+            --secondary-background: #273549;
+            --accent: #4adf86;
+            --hover-background-highlight: #a2fff3d1;
+            --hover-foreground-highlight: #1f2937;
+            --tagline: #d5d4d8;
+            --border: #57749c;
+            --button-background: #10b981;
+            --button-foreground: #ffffff;
+            --password-field-background: #273549;
+            --password-field-foreground: #10b981;
+            --checked-toggle-background: #10b981;
+            --unchecked-toggle-background: #6b7280;
+        }
+    }
+}
+
+:root[data-theme="light"] {
+    --background: #ecfdf5;
+    --foreground: #2b283a;
+    --secondary-background: #d5ffeb;
+    --accent: #10b981;
+    --hover-background-highlight: #a2fff3d1;
+    --hover-foreground-highlight: #10b981;
+    --tagline: #6b7280;
+    --border: #d5d4d8;
+    --button-background: #10b981;
+    --button-foreground: #ffffff;
+    --password-field-background: #273549;
+    --password-field-foreground: #10b981;
+    --checked-toggle-background: #10b981;
+    --unchecked-toggle-background: #6b7280;
+}
+
+:root[data-theme="dark"] {
+    --background: #1f2937;
+    --foreground: #ffffff;
+    --secondary-background: #273549;
+    --accent: #4adf86;
+    --hover-background-highlight: #a2fff3d1;
+    --hover-foreground-highlight: #1f2937;
+    --tagline: #d5d4d8;
+    --border: #57749c;
+    --button-background: #10b981;
+    --button-foreground: #ffffff;
+    --password-field-background: #273549;
+    --password-field-foreground: #10b981;
+    --checked-toggle-background: #10b981;
+    --unchecked-toggle-background: #6b7280;
+}
+
 * {
     box-sizing: border-box;
 }
 
 body {
     font-family: Karla;
+    background: var(--background);
+}
+
+#website-settings-floating-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 0.2rem;
+    position: fixed;
+    inset-block-start: 1rem;
+    inset-inline-end: 1rem;
+    z-index: 1;
+    padding: 0.2rem;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    box-shadow: 0 0 3px #000000;
+    background: var(--secondary-background);
+}
+
+.setting-button {
+    block-size: 1.6rem;
+    inline-size: 1.6rem;
+    border-radius: 5px;
+    border: none;
+    position: relative;
+    background: var(--secondary-background);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+}
+
+.setting-button:hover {
+    background: var(--hover-background-highlight);
+    color: var(--hover-foreground-highlight);
+}
+
+.setting-button-icon {
+    --ionicon-stroke-width: 3rem
+}
+
+.setting-options-container {
+    flex-direction: column;
+    gap: 0.2rem;
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: calc(1.8rem + 4px);
+    inline-size: max-content;
+    padding: 0rem;
+    border: 2px solid var(--border);
+    margin: 0;
+    border-radius: 5px;
+    background: var(--secondary-background);
+    box-shadow: 0 0 3px #000000;
+    text-align: left;
+    list-style: none;
+    color: var(--foreground);
+}
+
+.setting-option {
+    padding: 0.2rem 0.4rem;
+    display: flex;
+    gap: 0.2rem;
+}
+
+.setting-option:hover {
+    background: var(--hover-background-highlight);
+    color: var(--hover-foreground-highlight);
+}
+
+.setting-option:first-child {
+    border-radius: 5px 5px 0 0;
+}
+
+.setting-option:last-child {
+    border-radius: 0 0 5px 5px;
 }
 
 #main-container {
@@ -28,20 +177,21 @@ h1 {
     font-weight: 800;
     margin: 0;
     line-height: 1;
+    color: var(--foreground);
 }
 
 .highlight {
-    color: #10B981;
+    color: var(--accent);
 }
 
 #tagline {
-    color: #6B7280;
+    color: var(--tagline);
     margin: 0;
 }
 
 #generate-password-button {
-    color: #ffffff;
-    background: #10B981;
+    color: var(--button-foreground);
+    background: var(--button-background);
     border: 0;
     font-weight: 500;
     padding: 0.5rem 1rem;
@@ -49,7 +199,7 @@ h1 {
 }
 
 hr {
-    border-color: #D5D4D8;
+    border-color: var(--border);
     margin-block: 2.1rem;
 }
 
@@ -59,16 +209,18 @@ hr {
     min-block-size: 2.4rem;
     line-height: 2.4rem;
     inline-size: 100%;
-    background: #273549;
+    background: var(--password-field-background);
     border-radius: 6px;
-    color: #10B981;
+    color: var(--password-field-foreground);
     text-align: center;
     padding-inline: 0.5rem;
 }
 
 #options-container {
     border-radius: 1rem;
-    border: 1px solid #6B7280;
+    border: 2px solid var(--border);
+    color: var(--foreground);
+    background: var(--secondary-background);
 }
 
 #password-composition-settings-container {
@@ -101,7 +253,7 @@ hr {
     position: absolute;
     inset: 0;
     cursor: pointer;
-    background: #6B7280;
+    background: var(--unchecked-toggle-background);
     border-radius: 1em;
     transition: 300ms;
 }
@@ -109,7 +261,7 @@ hr {
 .slider::before {
     position: absolute;
     content: "";
-    background: white;
+    background: #ffffff;
     block-size: 1.4em;
     inline-size: 1.4em;
     left: 0.3em;
@@ -119,9 +271,21 @@ hr {
 }
 
 .toggle input:checked + .slider {
-    background-color: #10B981
+    background-color: var(--checked-toggle-background);
 }
 
 .toggle input:checked + .slider::before {
     transform: translateX(2em);
+}
+
+@layer initial-render {
+    .setting-options-container {
+        display: none;
+    }
+}
+
+@layer post-initial-render {
+    .setting-options-container.visible {
+        display: flex;
+    }
 }

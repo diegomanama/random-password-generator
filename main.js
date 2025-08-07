@@ -1,6 +1,6 @@
 // Helper function - Adds the same event listener to multiple elements.
 
-function addEventListenerAll(elementCollection, eventType, handler) {
+export function addEventListenerAll(elementCollection, eventType, handler) {
   for (const element of elementCollection) {
     element.addEventListener(eventType, (event) => handler(element, event));
   }

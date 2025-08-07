@@ -4,10 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Password Generator</title>
+    <script src="setStoredTheme.js"></script>
+    <link rel="stylesheet" href="layers.css">
     <link rel="stylesheet" href="style.css">
-    <script src="main.js" defer></script>
+    <script src="main.js" type="module"></script>
+    <script src="website-settings.js" type="module"></script>
 </head>
 <body>
+    <div id="website-settings-floating-bar">
+        <button id="select-theme-button" class="setting-button">
+            <ion-icon name="sunny-outline" class="setting-button-icon" aria-hidden="true"></ion-icon>
+            <ul class="setting-options-container" id="theme-options-container">
+                <li class="setting-option" data-theme="os-default">
+                    <ion-icon name="contrast-outline" aria-hidden="true"></ion-icon>
+                    OS default
+                </li>
+                <li class="setting-option" data-theme="light">
+                    <ion-icon name="sunny-outline"></ion-icon>
+                    Light
+                </li>
+                <li class="setting-option" data-theme="dark">
+                    <ion-icon name="moon-outline"></ion-icon>
+                    Dark
+                </li>
+            </ul>
+        </button>
+    </div>
+
     <main id="main-container">
         <hgroup>
             <h1>Generate a <span class="highlight">random password</span></h1>
@@ -84,5 +107,8 @@
             </fieldset>
         </form>
     </main>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
