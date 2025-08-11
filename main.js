@@ -34,7 +34,7 @@ const toggleStates = document.querySelectorAll(".toggle-state");
 
 function generateRandomPassword(config) {
     let randomPassword = "";
-    let characters = []
+    let characters = [];
 
     if (config.uppercaseLetters) {
         characters = [...characters, ...uppercaseLetters];
