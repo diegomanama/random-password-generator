@@ -75,7 +75,6 @@ function generateRandomPassword(config) {
     // Guarantee each required character type is included
 
     let passwordArray = randomPassword.split("");
-    console.log(passwordArray);
 
     passwordComposition.forEach((characterType, index) => {
         passwordArray[randomIndexes[index]] = characterType[Math.floor(Math.random() * characterType.length)];
