@@ -34,29 +34,56 @@ const toggleStates = document.querySelectorAll(".toggle-state");
 
 function generateRandomPassword(config) {
     let randomPassword = "";
-    let characters = [];
+    const passwordComposition = [];
+    const randomIndexes = [];
 
     if (config.uppercaseLetters) {
-        characters = [...characters, ...uppercaseLetters];
+        passwordComposition.push(uppercaseLetters);
     }
 
     if (config.lowercaseLetters) {
-        characters = [...characters, ...lowercaseLetters];
+        passwordComposition.push(lowercaseLetters);
     }
 
     if (config.numbers) {
-        characters =  [...characters, ...numbers];
+        passwordComposition.push(numbers);
     }
 
     if (config.specialCharacters) {
-        characters =  [...characters, ...specialCharacters];
-    }    
-
-    for (let i = 0; i < config.length; i++) {
-        randomPassword += characters[Math.floor(Math.random() * characters.length)];
+        passwordComposition.push(specialCharacters);
     }
 
-    return randomPassword;
+    // Generate random password
+
+    while (randomPassword.length < config.length) {
+        const randomCharacterType = passwordComposition[Math.floor(Math.random() * passwordComposition.length)];
+        randomPassword += randomCharacterType[Math.floor(Math.random() * randomCharacterType.length)];
+    }
+
+    // Generate an array of as many random indexes of the password characters as character types are to be included in the password
+
+    while (randomIndexes.length < passwordComposition.length) {
+        const newRandomIndex = Math.floor(Math.random() * config.length);
+
+        if (randomIndexes.includes(newRandomIndex)) {
+            continue;
+        }
+
+        randomIndexes.push(newRandomIndex);
+    }
+
+    // Guarantee each required character type is included
+
+    let passwordArray = randomPassword.split("");
+    console.log(passwordArray);
+
+    passwordComposition.forEach((characterType, index) => {
+        passwordArray[randomIndexes[index]] = characterType[Math.floor(Math.random() * characterType.length)];
+    });
+
+    // Return final password
+
+    return passwordArray.join("");
 }
 
 function updateLengthSelector() {
