@@ -260,6 +260,7 @@ h1 {
     display: inline-block;
     block-size: 2em;
     inline-size: 4em;
+    flex-shrink: 0;
 }
 
 .toggle input {
