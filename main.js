@@ -1,5 +1,4 @@
-// Helper function - Adds the same event listener to multiple elements.
-
+// Helper function: Adds the same event listener to multiple elements.
 export function addEventListenerAll(elementCollection, eventType, handler) {
   for (const element of elementCollection) {
     element.addEventListener(eventType, (event) => handler(element, event));
@@ -14,6 +13,13 @@ const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 const specialCharacters = ["~","`","!","@","#","$","%","^","&","*","(",")","_","-","+","=","{","[","}","]",",","|",":",";","<",">",".","?"];
 
+const generatePasswordButton = document.querySelector("#generate-password-button");
+const passwordSettingsForm = document.querySelector("#password-settings-form");
+const passwordOutput = document.querySelector("#password-output");
+const lengthSelector = document.querySelector("#length");
+const lengthSlider = document.querySelector("#length-slider");
+const toggleStates = document.querySelectorAll(".toggle-state");
+
 localStorage.setItem("defaultConfig", JSON.stringify(
     {
         length: 12,
@@ -26,82 +32,77 @@ localStorage.setItem("defaultConfig", JSON.stringify(
 
 let config = JSON.parse(localStorage.getItem("defaultConfig"));
 
-const generatePasswordButton = document.querySelector("#generate-password-button");
-const passwordOutput = document.querySelector("#password-output");
-const lengthSelector = document.querySelector("#length");
-const lengthSlider = document.querySelector("#length-slider");
-const toggleStates = document.querySelectorAll(".toggle-state");
-
-function generateRandomPassword(config) {
+function generateRandomPassword() {
     let randomPassword = "";
     const passwordComposition = [];
     const randomIndexes = [];
 
+    // Update password length from selector
+    config.length = lengthSelector.value;
+
+    // Build array of character sets to use
     if (config.uppercaseLetters) {
         passwordComposition.push(uppercaseLetters);
     }
-
     if (config.lowercaseLetters) {
         passwordComposition.push(lowercaseLetters);
     }
-
     if (config.numbers) {
         passwordComposition.push(numbers);
     }
-
     if (config.specialCharacters) {
         passwordComposition.push(specialCharacters);
     }
 
-    // Generate random password
-
+    // Generate random password using selected character sets
     while (randomPassword.length < config.length) {
         const randomCharacterType = passwordComposition[Math.floor(Math.random() * passwordComposition.length)];
         randomPassword += randomCharacterType[Math.floor(Math.random() * randomCharacterType.length)];
     }
 
-    // Generate an array of as many random indexes of the password characters as character types are to be included in the password
-
+    // Ensure each required character type is included at least once
     while (randomIndexes.length < passwordComposition.length) {
         const newRandomIndex = Math.floor(Math.random() * config.length);
-
-        if (randomIndexes.includes(newRandomIndex)) {
-            continue;
-        }
-
+        if (randomIndexes.includes(newRandomIndex)) continue;
         randomIndexes.push(newRandomIndex);
     }
 
-    // Guarantee each required character type is included
-
     let passwordArray = randomPassword.split("");
-
     passwordComposition.forEach((characterType, index) => {
         passwordArray[randomIndexes[index]] = characterType[Math.floor(Math.random() * characterType.length)];
     });
 
-    // Return final password
-
     return passwordArray.join("");
 }
 
+// Sync selector and slider values
 function updateLengthSelector() {
     lengthSelector.value = lengthSlider.value;
 }
-
 function updateLengthSlider() {
     lengthSlider.value = lengthSelector.value;
 }
 
 generatePasswordButton.addEventListener("click", () => {
-        config.length = lengthSelector.value
-        passwordOutput.value = generateRandomPassword(config);
+        passwordOutput.value = generateRandomPassword();
 });
 
 passwordOutput.addEventListener("click", () => navigator.clipboard.writeText(passwordOutput.value));
 
-lengthSlider.addEventListener("input", updateLengthSelector);
+// Prevent form submission from reloading the page
+passwordSettingsForm.addEventListener("submit", event => event.preventDefault())
+
+lengthSelector.addEventListener("change", () =>{
+    passwordOutput.value = generateRandomPassword();
+});
+
 lengthSelector.addEventListener("input", updateLengthSlider);
+
+lengthSlider.addEventListener("change", () => {
+    passwordOutput.value = generateRandomPassword();
+});
+
+lengthSlider.addEventListener("input", updateLengthSelector);
 
 addEventListenerAll(toggleStates, "input", (toggleState) => {
     switch (toggleState.dataset.setting) {
@@ -119,6 +120,7 @@ addEventListenerAll(toggleStates, "input", (toggleState) => {
             break;
     }
 
+    // Reset to default if all options are disabled
     if (
         config.uppercaseLetters === false &&
         config.lowercaseLetters === false &&
@@ -130,8 +132,8 @@ addEventListenerAll(toggleStates, "input", (toggleState) => {
             toggleState.checked = toggleState.defaultChecked;
         }
     }
-
-    passwordOutput.value = generateRandomPassword(config);
+    passwordOutput.value = generateRandomPassword();
 });
 
-passwordOutput.value = generateRandomPassword(config);
+// Generate a password at page load
+passwordOutput.value = generateRandomPassword();
