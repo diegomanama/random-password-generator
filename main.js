@@ -14,6 +14,7 @@ const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const specialCharacters = ["~","`","!","@","#","$","%","^","&","*","(",")","_","-","+","=","{","[","}","]",",","|",":",";","<",">",".","?"];
 
 const generatePasswordButton = document.querySelector("#generate-password-button");
+const copyPasswordButton = document.querySelector("#copy-password-button");
 const passwordSettingsForm = document.querySelector("#password-settings-form");
 const passwordOutput = document.querySelector("#password-output");
 const lengthSelector = document.querySelector("#length");
@@ -87,7 +88,13 @@ generatePasswordButton.addEventListener("click", () => {
         passwordOutput.value = generateRandomPassword();
 });
 
-passwordOutput.addEventListener("click", () => navigator.clipboard.writeText(passwordOutput.value));
+copyPasswordButton.addEventListener("click", () => {
+    navigator.clipboard.writeText(passwordOutput.value)
+    copyPasswordButton.textContent = "Copied";
+    setTimeout(() => {
+        copyPasswordButton.textContent = "Copy";
+    }, 1000)
+});
 
 // Prevent form submission from reloading the page
 passwordSettingsForm.addEventListener("submit", event => event.preventDefault())

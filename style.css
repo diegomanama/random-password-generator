@@ -202,7 +202,13 @@ h1 {
     font-size: 1.3rem;
 }
 
-#generate-password-button {
+#action-buttons-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.action-button {
     color: var(--button-foreground);
     background: var(--button-background);
     border: 0;
@@ -211,6 +217,16 @@ h1 {
     border-radius: 6px;
     font-size: 1.3rem;
     cursor: pointer;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.action-button-icon {
+    display: flex;
+    align-items: center;
 }
 
 .output-field-container {
