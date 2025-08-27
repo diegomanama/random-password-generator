@@ -93,6 +93,8 @@ passwordOutput.addEventListener("click", () => navigator.clipboard.writeText(pas
 passwordSettingsForm.addEventListener("submit", event => event.preventDefault())
 
 lengthSelector.addEventListener("change", () =>{
+    if (Number(lengthSelector.value) < lengthSelector.min) lengthSelector.value = lengthSelector.min
+    if (Number(lengthSelector.value) > lengthSelector.max) lengthSelector.value = lengthSelector.max;
     passwordOutput.value = generateRandomPassword();
 });
 
